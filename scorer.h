@@ -20,10 +20,11 @@ public:
     code_position_used(POSITIONS, false),
     guess_position_used(POSITIONS, false) { }
   
-  Score score_it() { return Score(count_letters_in_position(),
-                                  count_letters_out_of_position()); }
-  void unit_test() { unit_test_in_position(); }
-
+  Score score_it() { int ca = count_letters_in_position();
+                     int cb = count_letters_out_of_position();
+                     return Score(ca, cb); }
+  void unit_test() { unit_test_in_position(); 
+                     unit_test_not_in_position(); }
 
 private:
   int count_letters_in_position();
@@ -31,9 +32,12 @@ private:
   bool is_in_position(int i);
   bool is_out_of_position(int i);
 
-  void assert_in_position(int in_position, const std::string& code,
-          const std::string& guess);
+  void assert_in_position(int in_position,
+          const std::string& code, const std::string& guess);
+  void assert_not_in_position(int in_position,
+          const std::string& code, const std::string& guess);
   void unit_test_in_position();
+  void unit_test_not_in_position();
 
   std::vector<bool> code_position_used;
   std::vector<bool> guess_position_used;

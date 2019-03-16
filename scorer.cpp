@@ -24,7 +24,7 @@ bool Scorer::is_out_of_position(int ic)
 {
   for (int ig = 0; ig < guess.size(); ig++)
     if (!code_position_used[ic] && !guess_position_used[ig] &&
-            ig != ic && guess[ig] == code[ic])
+            (ig != ic) && (guess[ig] == code[ic]))
       return code_position_used[ic] = guess_position_used[ig] = true;
   return false;
 }
@@ -50,12 +50,33 @@ void Scorer::unit_test_in_position()
     assert_in_position(1, string("ABBB"), string("AAAA"));
 }
 
+void Scorer::unit_test_not_in_position()
+{
+    assert_not_in_position(0, string("AAAA"), string("BBBB"));
+    assert_not_in_position(0, string("ABBB"), string("ACCC"));
+    assert_not_in_position(1, string("ABBB"), string("CACC"));
+    assert_not_in_position(4, string("ABCD"), string("DCBA"));
+    assert_not_in_position(2, string("ABBA"), string("CAAC"));
+    assert_not_in_position(3, string("ABCD"), string("CADF"));
+    assert_not_in_position(0, string("ABBB"), string("AAAA"));
+    assert_not_in_position(1, string("ABBB"), string("CAAA"));
+    assert_not_in_position(1, string("AABB"), string("CCAC"));
+}
+
 void Scorer::assert_in_position(int in_position,
         const std::string& code, const std::string& guess)
 {
-  assert(in_position == score_guess(code, guess).get_position());
+    assert(in_position == score_guess(code, guess).get_position());
+}
+
+void Scorer::assert_not_in_position(int in_position,
+        const std::string& code, const std::string& guess)
+{
+    assert(in_position == score_guess(code, guess).get_code());
 }
 
 Score score_guess(const std::string& code, const std::string& guess)
-      { return Scorer(code, guess).score_it(); }
+{ 
+    return Scorer(code, guess).score_it();
+}
 

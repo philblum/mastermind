@@ -18,8 +18,8 @@ public:
     friend bool operator!=(const Score& lhs, const Score& rhs)
             { return !(lhs == rhs); }
     friend std::ostream& operator<<(std::ostream& os, const Score& score)
-    { os << score.in_position << " " << score.in_code;
-      return os; }
+            { os << score.in_position << " " << score.in_code;
+              return os; }
 
 private:
     int in_position;
