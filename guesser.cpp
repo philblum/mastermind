@@ -32,7 +32,7 @@ std::string Guesser::get_next_guess()
     {
         std::string guess = make_guess(guess_index++);
         if (guess.empty())
-          return ""; // or std::string()
+          return "";
         else if (guess_checker.should_try(guess))
           return guess;
     }

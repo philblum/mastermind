@@ -9,8 +9,8 @@ public:
     Score() = default;
     Score(const int position, const int code):
         in_position(position), in_code(code) { }
-    int get_position() { return in_position; }
-    int get_code() { return in_code; }
+    int get_position() const { return in_position; }
+    int get_code() const { return in_code; }
 
     friend bool operator==(const Score& lhs, const Score& rhs)
             { return lhs.in_position == rhs.in_position &&

@@ -2,7 +2,7 @@
 #include <string>
 #include "game_engine.h"
 
-void Game_Engine::try_next_guess(std::string guess)
+void Game_Engine::try_next_guess(const std::string& guess)
 {
     if (guess.empty())
       code_not_found();
