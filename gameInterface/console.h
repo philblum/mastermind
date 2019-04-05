@@ -4,6 +4,11 @@
 #include <string>
 #include "score.h"
 
+namespace mastermind {
+namespace gameInterface {
+
+using namespace gamePlay;
+
 class Console
 {
 public:
@@ -17,4 +22,6 @@ private:
     std::string read_line() const;
     int count(std::string& s, char c);
 };
+
+}}
 

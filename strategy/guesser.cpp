@@ -3,6 +3,9 @@
 
 using std::string;
 
+namespace mastermind {
+namespace strategy {
+
 const std::string Guesser::LETTERS = "ABCDEF";
 const unsigned Guesser::MAX_LETTERS = LETTERS.length();
 const unsigned Guesser::MAX_CODES = MAX_LETTERS * MAX_LETTERS * MAX_LETTERS * MAX_LETTERS;
@@ -57,3 +60,6 @@ void Guesser::unit_test()
     Guesser guesser(std::move(Guess_Checker()));
     assert(string("AAAA") == guesser.get_next_guess());
 }
+
+} }
+

@@ -3,6 +3,9 @@
 
 using namespace std;
 
+namespace mastermind {
+namespace strategy {
+
 bool Scorer::is_in_position(int i)
 {
   if (code[i] == guess[i])
@@ -79,4 +82,6 @@ Score score_guess(const std::string& code, const std::string& guess)
 { 
     return Scorer(code, guess).score_it();
 }
+
+} }
 

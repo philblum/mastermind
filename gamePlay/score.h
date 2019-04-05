@@ -3,6 +3,9 @@
 
 #include <iostream>
 
+namespace mastermind {
+namespace gamePlay {
+
 class Score 
 {
 public:
@@ -26,4 +29,5 @@ private:
     int in_code;
 };
 
+} }
 

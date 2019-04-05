@@ -6,6 +6,9 @@
 #include "score.h"
 #include "scorer.h"
 
+namespace mastermind {
+namespace strategy {
+
 class Guess_Checker
 {
 public:
@@ -37,4 +40,6 @@ private:
     std::vector<Score_Record> score_history;
 
 };
+
+} }
 

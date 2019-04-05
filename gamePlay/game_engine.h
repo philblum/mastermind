@@ -6,6 +6,12 @@
 #include "guesser.h"
 #include "score.h"
 
+namespace mastermind {
+namespace gamePlay {
+
+using namespace gameInterface;
+using namespace strategy;
+
 class Game_Engine
 {
 public:
@@ -29,3 +35,4 @@ private:
     int tries;
 };
 
+} }

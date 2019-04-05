@@ -8,6 +8,11 @@
 #include <vector>
 #include "score.h"
 
+namespace mastermind {
+namespace strategy {
+
+using namespace gamePlay;
+
 class Scorer
 {
 public:
@@ -46,4 +51,7 @@ private:
 };
 
 Score score_guess(const std::string& code, const std::string& guess);
+
+} }
+
 

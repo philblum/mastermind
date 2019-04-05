@@ -3,6 +3,11 @@
 #include <iostream>
 #include "console.h"
 
+namespace mastermind {
+namespace gameInterface {
+
+using namespace gamePlay;
+
 Score Console::score_guess(const std::string& guess)
 {
     std::cout << "Enter score for " << guess << std::endl;
@@ -17,17 +22,17 @@ void Console::announce_game_over() const
 
 void Console::announce_winning_code(const std::string& code) const
 {
-    std::cout << "Winning code = " << code << std::endl;
+    std::cout << "Winning code: " << code << std::endl;
 }
 
 void Console::announce_tries(const int tries) const
 {
-    std::cout << "tries = " << tries << std::endl;
+    std::cout << "tries: " << tries << std::endl;
 }
 
 void Console::announce_bad_scoring() const
 {
-    std::cout << "Sorry, but you're scoring was less than perfectly accurate." << std::endl;
+    std::cout << "Sorry, but you're scoring was less than perfectly accurate. :(" << std::endl;
 }
 
 std::string Console::read_line() const
@@ -45,4 +50,6 @@ int Console::count(std::string& s, char c)
             count++;
     return count;
 }
+
+} }
 

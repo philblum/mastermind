@@ -2,6 +2,9 @@
 #include <string>
 #include "game_engine.h"
 
+namespace mastermind {
+namespace gamePlay {
+
 void Game_Engine::try_next_guess(const std::string& guess)
 {
     if (guess.empty())
@@ -41,4 +44,6 @@ void Game_Engine::code_not_found()
     console.announce_bad_scoring();
     game_over = true;
 }
+
+} }
 

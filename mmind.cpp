@@ -4,6 +4,8 @@
 #include "game_engine.h"
 
 using namespace std;
+using namespace mastermind::gamePlay;
+using namespace mastermind::strategy;
 
 void unit_test()
 {

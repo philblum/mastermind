@@ -3,6 +3,9 @@
 #include "guess_checker.h"
 #include "score.h"
 
+namespace mastermind {
+namespace strategy {
+
 class Guesser 
 {
 public:
@@ -22,4 +25,6 @@ private:
     int guess_index = 0;
 
 };
+
+} }
 
