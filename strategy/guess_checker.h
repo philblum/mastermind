@@ -14,6 +14,7 @@ class Guess_Checker
 public:
     bool should_try(const std::string& guess) const
     {  return is_guess_consistent(guess); }
+
     void add_score_to_history(const std::string& guess, const Score& score)
     {
       score_history.push_back(Score_Record(guess, score));

@@ -1,4 +1,6 @@
 
+#include <algorithm>
+#include <random>
 #include "guesser.h"
 
 using std::string;
@@ -6,9 +8,47 @@ using std::string;
 namespace mastermind {
 namespace strategy {
 
+// helper functions for permutations
+unsigned int factorial(const unsigned int n);
+void permutation(int k, string &s);
+std::string permute_letters(const std::string& s);
+
 const std::string Guesser::LETTERS = "ABCDEF";
+const std::string Guesser::PERMUTED_LETTERS = permute_letters(Guesser::LETTERS);
 const unsigned Guesser::MAX_LETTERS = LETTERS.length();
 const unsigned Guesser::MAX_CODES = MAX_LETTERS * MAX_LETTERS * MAX_LETTERS * MAX_LETTERS;
+
+unsigned int factorial(const unsigned int n)
+{
+    unsigned int fact = 1;
+    for(unsigned int k = 1; k <= n; k++)
+      fact *= k;
+    return fact;
+}
+
+void permutation(int k, string &s)
+{
+    for(int j = 1; j < s.size(); ++j)
+    {
+        std::swap(s[k % (j + 1)], s[j]);
+        k = k / (j + 1);
+    }
+}
+
+std::string permute_letters(const std::string& s)
+{
+    std::random_device rd;  // used to obtain a seed for the random number engine
+    std::mt19937 gen(rd()); // mersenne_twister_engine seeded with rd()
+
+    // select kth permutation of input string
+    int n_fact = factorial(s.length());
+    std::uniform_int_distribution<> dis(0, n_fact);
+    const int k = dis(gen);
+
+    std::string p(s);
+    permutation(k, p);
+    return p;
+}
 
 std::string Guesser::make_guess(int guess_index)
 {
@@ -16,6 +56,14 @@ std::string Guesser::make_guess(int guess_index)
         return "";
     else
         return build_guess(guess_index);
+}
+
+std::string Guesser::make_permuted_guess(int guess_index)
+{
+    if (guess_index < 0 || guess_index >= (MAX_CODES))
+        return "";
+    else
+        return build_permuted_guess(guess_index);
 }
 
 std::string Guesser::build_guess(int guess_index)
@@ -29,11 +77,23 @@ std::string Guesser::build_guess(int guess_index)
     return std::string() + LETTERS.at(d4) + LETTERS.at(d3) + LETTERS.at(d2) + LETTERS.at(d1);
 }
 
+std::string Guesser::build_permuted_guess(int guess_index)
+{
+    static auto n = MAX_LETTERS;
+    int d1 = guess_index % n;
+    int d2 = (guess_index / n) % n;
+    int d3 = (guess_index / (n * n)) % n;
+    int d4 = (guess_index / (n * n * n) % n);
+
+    return std::string() + PERMUTED_LETTERS.at(d4) + PERMUTED_LETTERS.at(d3)
+                         + PERMUTED_LETTERS.at(d2) + PERMUTED_LETTERS.at(d1);
+}
+
 std::string Guesser::get_next_guess()
 {
     while(true)
     {
-        std::string guess = make_guess(guess_index++);
+        std::string guess = make_permuted_guess(guess_index++);
         if (guess.empty())
           return "";
         else if (guess_checker.should_try(guess))
@@ -57,8 +117,8 @@ void Guesser::unit_test()
     assert(string("") == make_guess(MAX_CODES));
     assert(string("") == make_guess(-1));
 
-    Guesser guesser(std::move(Guess_Checker()));
-    assert(string("AAAA") == guesser.get_next_guess());
+    assert(std::is_permutation(LETTERS.begin(), LETTERS.end(),
+                                     PERMUTED_LETTERS.begin()));
 }
 
 } }
