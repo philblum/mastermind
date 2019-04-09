@@ -1,4 +1,7 @@
-
+/* Copyright (C) 2019 Philip C. Blum.
+ * This program is distributed under the terms of the GNU General Public
+ * License version 3 or any later version.
+ */
 #include <algorithm>
 #include <random>
 #include "guesser.h"
@@ -18,38 +21,11 @@ const std::string Guesser::PERMUTED_LETTERS = permute_letters(Guesser::LETTERS);
 const unsigned Guesser::MAX_LETTERS = LETTERS.length();
 const unsigned Guesser::MAX_CODES = MAX_LETTERS * MAX_LETTERS * MAX_LETTERS * MAX_LETTERS;
 
-unsigned int factorial(const unsigned int n)
-{
-    unsigned int fact = 1;
-    for(unsigned int k = 1; k <= n; k++)
-      fact *= k;
-    return fact;
+std::string Guesser::get_random_code()
+{ 
+    return permute_letters(Guesser::LETTERS).substr(0, 4);
 }
-
-void permutation(int k, string &s)
-{
-    for(int j = 1; j < s.size(); ++j)
-    {
-        std::swap(s[k % (j + 1)], s[j]);
-        k = k / (j + 1);
-    }
-}
-
-std::string permute_letters(const std::string& s)
-{
-    std::random_device rd;  // used to obtain a seed for the random number engine
-    std::mt19937 gen(rd()); // mersenne_twister_engine seeded with rd()
-
-    // select kth permutation of input string
-    int n_fact = factorial(s.length());
-    std::uniform_int_distribution<> dis(0, n_fact);
-    const int k = dis(gen);
-
-    std::string p(s);
-    permutation(k, p);
-    return p;
-}
-
+    
 std::string Guesser::make_guess(int guess_index)
 {
     if (guess_index < 0 || guess_index >= (MAX_CODES))
@@ -119,6 +95,38 @@ void Guesser::unit_test()
 
     assert(std::is_permutation(LETTERS.begin(), LETTERS.end(),
                                      PERMUTED_LETTERS.begin()));
+}
+
+unsigned int factorial(const unsigned int n)
+{
+    unsigned int fact = 1;
+    for(unsigned int k = 1; k <= n; k++)
+      fact *= k;
+    return fact;
+}
+
+void permutation(int k, string &s)
+{
+    for(int j = 1; j < s.size(); ++j)
+    {
+        std::swap(s[k % (j + 1)], s[j]);
+        k = k / (j + 1);
+    }
+}
+
+std::string permute_letters(const std::string& s)
+{
+    std::random_device rd;  // used to obtain a seed for the random number engine
+    std::mt19937 gen(rd()); // mersenne_twister_engine seeded with rd()
+
+    // select kth permutation of input string
+    int n_fact = factorial(s.length());
+    std::uniform_int_distribution<> dis(0, n_fact);
+    const int k = dis(gen);
+
+    std::string p(s);
+    permutation(k, p);
+    return p;
 }
 
 } }

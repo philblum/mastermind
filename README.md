@@ -57,4 +57,10 @@ The second improvement on the basic algorithm is prevent the opponent from
 discovering the basic strategy. This is done in one or both of two ways:
 permuting the peg order and permuting the colors/letters.
 
+### Reference
+
+Wolfram, below, has a brief description of the game and a summary of 
+codebreaking strategies and a nice list of references.
+
+http://mathworld.wolfram.com/Mastermind.html
 

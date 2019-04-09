@@ -1,4 +1,7 @@
-
+/* Copyright (C) 2019 Philip C. Blum.
+ * This program is distributed under the terms of the GNU General Public
+ * License version 3 or any later version.
+ */
 #include <string>
 #include "guess_checker.h"
 #include "score.h"
@@ -15,6 +18,7 @@ public:
     static const unsigned MAX_CODES;
 
     Guesser(Guess_Checker gc): guess_checker(gc) { }
+    static std::string get_random_code();
     static std::string make_guess(int guess_index);
     static std::string make_permuted_guess(int guess_index);
     std::string get_next_guess();

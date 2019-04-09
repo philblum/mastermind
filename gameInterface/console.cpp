@@ -1,4 +1,7 @@
-
+/* Copyright (C) 2019 Philip C. Blum.
+ * This program is distributed under the terms of the GNU General Public
+ * License version 3 or any later version.
+ */
 #include <string>
 #include <iostream>
 #include "console.h"
@@ -8,11 +11,18 @@ namespace gameInterface {
 
 using namespace gamePlay;
 
-Score Console::score_guess(const std::string& guess)
+// read codebreaker's guess from console
+std::string Console::get_next_guess() const
+{
+    std::string next_guess = read_line();
+    return next_guess;
+}
+
+Score Console::score_guess(const std::string& guess) const
 {
     std::cout << "Enter score for " << guess << std::endl;
-    std::string next_guess = read_line();
-    return Score(count(next_guess, '+'), count(next_guess, '-'));
+    std::string response = read_line();
+    return Score(count(response, '+'), count(response, '-'));
 }
 
 void Console::announce_game_over() const
@@ -32,9 +42,23 @@ void Console::announce_tries(const int tries) const
 
 void Console::announce_bad_scoring() const
 {
-    std::cout << "Sorry, but you're scoring was less than perfectly accurate. :(" << std::endl;
+    std::cout << "Sorry, but you're scoring was less than perfectly accurate." << std::endl;
 }
 
+void Console::announce_new_code() const
+{
+    std::cout << "Guess 4 letter code selected from pattern \'ABCDEF\'" << std::endl;
+}
+
+void Console::announce_score(const Score& score) const
+{
+    std::cout << score << std::endl;
+}
+
+void Console:: announce_guess_already_tried() const
+{
+    std::cout << "Guess already tried" << std::endl;
+}
 std::string Console::read_line() const
 {
     std::string line;
@@ -42,7 +66,7 @@ std::string Console::read_line() const
     return line;
 }
 
-int Console::count(std::string& s, char c)
+int Console::count(const std::string& s, const char c) const
 {
     int count = 0;
     for (int i = 0; i < s.length(); i++)

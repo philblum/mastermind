@@ -1,4 +1,7 @@
-
+/* Copyright (C) 2019 Philip C. Blum.
+ * This program is distributed under the terms of the GNU General Public
+ * License version 3 or any later version.
+ */
 #pragma once
 
 #include <iostream>
@@ -21,8 +24,15 @@ public:
     friend bool operator!=(const Score& lhs, const Score& rhs)
             { return !(lhs == rhs); }
     friend std::ostream& operator<<(std::ostream& os, const Score& score)
-            { os << score.in_position << " " << score.in_code;
-              return os; }
+            { 
+              //os << score.in_position << ", " << score.in_code;
+              std::string s = {};
+              for(int i = 0; i < score.get_position(); i++) s += '+';
+              for(int i = 0; i < score.get_code(); i++) s += '-';
+              if(s.empty()) s = "none";
+              os << s;
+              return os;
+            }
 
 private:
     int in_position;
