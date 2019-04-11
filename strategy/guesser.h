@@ -14,8 +14,9 @@ class Guesser
 public:
     static const std::string LETTERS;
     static const std::string PERMUTED_LETTERS;
-    static const unsigned MAX_LETTERS;
-    static const unsigned MAX_CODES;
+    static const unsigned NUM_LETTERS;
+    static const unsigned NUM_CODES;
+    static const unsigned NUM_PEGS;
 
     Guesser(Guess_Checker gc): guess_checker(gc) { }
     static std::string get_random_code();

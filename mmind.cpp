@@ -21,24 +21,36 @@ void unit_test()
     std::cout << "All tests pass" << std::endl << std::endl;
 }
 
-void print_version_notice() { std::cout << "MasterMind version 1.5" << std::endl; }
+void print_version() { std::cout << "MasterMind version 1.5" << std::endl; }
 
-void print_copyright_notice()
+void print_copyright()
 {
     std::cout << "mmind  Copyright (C) 2019 Philip C. Blum" << std::endl;
     std::cout << "This program comes with ABSOLUTELY NO WARRANTY; for details type `show w'." << std::endl;
     std::cout << "This is free software, and you are welcome to redistribute it" << std::endl;
     std::cout << "under certain conditions; type `show c' for details." << std::endl;
+    std::cout << std::endl;
 }
 
-int main()
+void print_usage()
 {
-    print_version_notice();
-    print_copyright_notice();
+    std:: cout << "usage: mmind (1|2)" << std::endl;
+    std:: cout << "mmind 1: Computer guesses your pattern" << std::endl;
+    std:: cout << "mmind 2: You guess computer's pattern" << std::endl;
+}
 
-    unit_test();
+int main(int argc, char *argv[])
+{
+    print_version();
+    print_copyright();
 
-    Game_Engine game_engine(std::move(Console()), 1);
+    if(argc != 2) { print_usage(); return -1; }
+    unsigned mode = stoul(argv[1]);
+    if(mode != 1 && mode != 2) { print_usage(); return -1; }
+
+    Game_Engine game_engine(std::move(Console()), mode);
     game_engine.play();
+
+    return 0;
 
 }

@@ -5,11 +5,13 @@
 #include <string>
 #include <iostream>
 #include "console.h"
+#include "guesser.h"
 
 namespace mastermind {
 namespace gameInterface {
 
 using namespace gamePlay;
+using namespace strategy;
 
 // read codebreaker's guess from console
 std::string Console::get_next_guess() const
@@ -47,7 +49,7 @@ void Console::announce_bad_scoring() const
 
 void Console::announce_new_code() const
 {
-    std::cout << "Guess 4 letter code selected from pattern \'ABCDEF\'" << std::endl;
+    std::cout << "Guess " << Guesser::NUM_PEGS << " letter code selected from pattern \'ABCDEF\'" << std::endl;
 }
 
 void Console::announce_score(const Score& score) const
@@ -59,6 +61,7 @@ void Console:: announce_guess_already_tried() const
 {
     std::cout << "Guess already tried" << std::endl;
 }
+
 std::string Console::read_line() const
 {
     std::string line;

@@ -18,8 +18,9 @@ std::string permute_letters(const std::string& s);
 
 const std::string Guesser::LETTERS = "ABCDEF";
 const std::string Guesser::PERMUTED_LETTERS = permute_letters(Guesser::LETTERS);
-const unsigned Guesser::MAX_LETTERS = LETTERS.length();
-const unsigned Guesser::MAX_CODES = MAX_LETTERS * MAX_LETTERS * MAX_LETTERS * MAX_LETTERS;
+const unsigned Guesser::NUM_LETTERS = LETTERS.length();
+const unsigned Guesser::NUM_CODES = NUM_LETTERS * NUM_LETTERS * NUM_LETTERS * NUM_LETTERS;
+const unsigned Guesser::NUM_PEGS = 4;
 
 std::string Guesser::get_random_code()
 { 
@@ -28,7 +29,7 @@ std::string Guesser::get_random_code()
     
 std::string Guesser::make_guess(int guess_index)
 {
-    if (guess_index < 0 || guess_index >= (MAX_CODES))
+    if (guess_index < 0 || guess_index >= (NUM_CODES))
         return "";
     else
         return build_guess(guess_index);
@@ -36,7 +37,7 @@ std::string Guesser::make_guess(int guess_index)
 
 std::string Guesser::make_permuted_guess(int guess_index)
 {
-    if (guess_index < 0 || guess_index >= (MAX_CODES))
+    if (guess_index < 0 || guess_index >= (NUM_CODES))
         return "";
     else
         return build_permuted_guess(guess_index);
@@ -44,7 +45,7 @@ std::string Guesser::make_permuted_guess(int guess_index)
 
 std::string Guesser::build_guess(int guess_index)
 {
-    static auto n = MAX_LETTERS;
+    static auto n = NUM_LETTERS;
     int d1 = guess_index % n;
     int d2 = (guess_index / n) % n;
     int d3 = (guess_index / (n * n)) % n;
@@ -55,7 +56,7 @@ std::string Guesser::build_guess(int guess_index)
 
 std::string Guesser::build_permuted_guess(int guess_index)
 {
-    static auto n = MAX_LETTERS;
+    static auto n = NUM_LETTERS;
     int d1 = guess_index % n;
     int d2 = (guess_index / n) % n;
     int d3 = (guess_index / (n * n)) % n;
@@ -86,11 +87,11 @@ void Guesser::unit_test()
 {
     assert(string("AAAA") == make_guess(0));
     assert(string("AAAB") == make_guess(1));
-    assert(string("AAAF") == make_guess(MAX_LETTERS - 1));
-    assert(string("BAAA") == make_guess(MAX_LETTERS*MAX_LETTERS*MAX_LETTERS));
-    assert(string("FAAA") == make_guess(MAX_LETTERS*MAX_LETTERS*MAX_LETTERS*(MAX_LETTERS-1)));
-    assert(string("FFFF") == make_guess(MAX_CODES - 1));
-    assert(string("") == make_guess(MAX_CODES));
+    assert(string("AAAF") == make_guess(NUM_LETTERS - 1));
+    assert(string("BAAA") == make_guess(NUM_LETTERS*NUM_LETTERS*NUM_LETTERS));
+    assert(string("FAAA") == make_guess(NUM_LETTERS*NUM_LETTERS*NUM_LETTERS*(NUM_LETTERS-1)));
+    assert(string("FFFF") == make_guess(NUM_CODES - 1));
+    assert(string("") == make_guess(NUM_CODES));
     assert(string("") == make_guess(-1));
 
     assert(std::is_permutation(LETTERS.begin(), LETTERS.end(),

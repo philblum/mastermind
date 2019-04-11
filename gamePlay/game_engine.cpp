@@ -16,7 +16,8 @@ void Game_Engine::try_next_guess(const std::string& guess)
       score_one_guess(guess);
 }
 
-void Game_Engine::play2()
+/* User guesses computer's pattern */
+void Game_Engine::play_mode2()
 {
     console.announce_new_code();
     code = guesser.get_random_code();
@@ -25,23 +26,15 @@ void Game_Engine::play2()
       std::string guess = console.get_next_guess();
       Score score = Scorer(code, guess).score_it();
       console.announce_score(score);
-      if (is_perfect_match(score)) {
+      if (is_perfect_match(score))
         win(guess);
-      } else {
+      else
         guesser.remember_score(guess, score);
-#if 0
-        if(!guesser.should_try(guess))
-          console.announce_guess_already_tried();
-        else
-          guesser.remember_score(guess, score);
-#endif
-      }
-      //score_next_guess(next_guess);
-      //try_next_guess(console.get_next_guess());
     }
 }
 
-void Game_Engine::play1()
+/* Computer guesses user's pattern */
+void Game_Engine::play_mode1()
 {
     for(tries=1; !game_over; tries++)
     {
@@ -50,20 +43,17 @@ void Game_Engine::play1()
     }
 }
 
-void Game_Engine::play()
-{
-    if(mode == 0) play1();
-    else play2();
-}
-
 void Game_Engine::score_one_guess(const std::string& guess)
 {
     Score score = console.score_guess(guess);
     std::cout << score << std::endl;
-    if (is_perfect_match(score)) {
-      win(guess);
-    } else {
-      guesser.remember_score(guess, score);
+    if (is_perfect_match(score))
+    {
+        win(guess);
+    } 
+    else
+    {
+        guesser.remember_score(guess, score);
     }
 }
 
